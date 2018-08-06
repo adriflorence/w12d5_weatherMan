@@ -1,7 +1,47 @@
+body {
+  background-color: #072047;
+  font-family: 'Palatino Linotype', 'Book Antiqua', Palatino, serif;
+  color: white;
+}
 
+h1 {
+  font-size: 72px;
+}
+
+#container {
+  padding: 20px;
+}
+
+#search-box {
+  margin-bottom: 20px;
+  height: 30px;
+}
 
 #map {
   height: 400px;
   width: 100%;
+  border: 3px solid #3E363F;
+}
 
+#map input {
+  height: 30px;
+  background-color: #FFFCE8;
+  font-size: 30px;
+}
+
+#weather-details {
+  display: flex;
+  margin-top: 20px;
+  background-color: #3CC581;
+  /* background-image: url('img/cloud.png'); */
+  /* background-size: contain; */
+  /* background-repeat: no-repeat; */
+  /* background-position: right; */
+  padding: 20px 10px;
+  min-height: 40px;
+  vertical-align: middle;
+}
+
+#weather-details img{
+  height: 100px;
 }

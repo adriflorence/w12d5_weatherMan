@@ -16,11 +16,28 @@ const fetchWeatherData = function (response) {
     const event = new CustomEvent('locationFound', {
       detail: {
         coordinates: response.latt_long.split(','),
-        abbreviation: response.consolidated_weather[0].weather_state_abbr
+        city: response.title,
+        abbreviation: response.consolidated_weather[0].weather_state_abbr,
+        weather: response.consolidated_weather[0].weather_state_name,
+        temp: response.consolidated_weather[0].the_temp
       }
     });
     window.dispatchEvent(event);
   })
+}
+
+const displayWeatherInfo = function (weather) {
+  let displayArea = document.getElementById('weather-details');
+  displayArea.innerHTML = '';
+  let cityName = document.createElement('h2');
+  let weatherText = document.createElement('p');
+  let weatherImage = document.createElement('img');
+  cityName.innerText = `${weather.city}: `;
+  weatherText.innerText = `${weather.weather} , temperature: ${weather.temp.toFixed(1)} °C`;
+  weatherImage.src = `https://www.metaweather.com/static/img/weather/${weather.abbreviation}.svg`
+  displayArea.appendChild(cityName);
+  displayArea.appendChild(weatherText);
+  displayArea.appendChild(weatherImage);
 }
 
 var app = function(){
@@ -28,6 +45,8 @@ var app = function(){
   window.addEventListener('locationFound', function(e) {
     mapWrapper.addMarker(e.detail.coordinates, e.detail.abbreviation);
     mapWrapper.moveTo(e.detail.coordinates);
+    console.log(e);
+    displayWeatherInfo(e.detail);
   })
 };
 
