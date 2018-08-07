@@ -2,6 +2,12 @@ const MapWrapper = function(element, lat, lng, zoom){
   const osmUrl='http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png';
   const osm = new L.TileLayer(osmUrl);
   this.map = L.map(element).addLayer(osm).setView([lat, lng], zoom);
+  this.map.on('zoomend', (e) => {
+    const center = this.map.getBounds().getCenter();
+    const lat = center.lat;
+    const lon = center.lng;
+    makeRequest(`/nearby?lat=${lat}&lon=${lon}`, () => {})
+  })
 };
 
 const weatherIconProvider = function (abbreviation) {
